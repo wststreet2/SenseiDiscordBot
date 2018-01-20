@@ -42,13 +42,6 @@ client.on('message', message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  if (message.author.id == '132517228670091264') {
-    switch (command) {
-      case 'admintest': message.channel.send('Yes, master!'); break;
-      case 'sslog': message.author.sendFile('./debugS.log'); break;
-    }
-  }
-
   if (!client.commands.has(command)) return;
 
   try {
