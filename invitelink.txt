@@ -1,0 +1,2 @@
+https://discordapp.com/oauth2/authorize?&client_id=368038000971743242&scope=bot&permissions=103836678
+https://discordapp.com/oauth2/authorize?client_id=368038000971743242&scope=bot&permissions=2080898303
