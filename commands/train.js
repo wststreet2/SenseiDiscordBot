@@ -1,7 +1,10 @@
+const trains = require('../res/emojis.json').trains;
 
-const trains = require('./emojis.json').trains;
-
-exports.run = function(client, message) {
-    var randomIndex = Math.floor(Math.random() * trains.length);
-    message.channel.send(trains[randomIndex]);
-}
+module.exports = {
+    name: 'train',
+    description: 'Sends one train emoji!',
+    execute(message, args) {
+        var randomIndex = Math.floor(Math.random() * trains.length);
+        message.channel.send(trains[randomIndex]);
+    },
+};

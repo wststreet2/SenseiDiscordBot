@@ -1,31 +1,37 @@
-const trains = require('./emojis.json').trains;
+const trains = require('../res/emojis.json').trains;
 
-exports.run = function (client, message, args) {
-    var s1 = Math.floor(Math.random() * trains.length);
-    var s2 = Math.floor(Math.random() * trains.length);
-    var s3 = Math.floor(Math.random() * trains.length);
+module.exports = {
+    name: 'tslots',
+    description: 'Slots game, with trains!',
+    execute(message, args) {
 
-    var output = "";
-    var cheat = args[0] != null && args[0] == 'cheat';
+        var s1 = Math.floor(Math.random() * trains.length);
+        var s2 = Math.floor(Math.random() * trains.length);
+        var s3 = Math.floor(Math.random() * trains.length);
 
-    if (cheat) {
-        output += "CHOOOOOO! Winner! Congrats " + message.author + ", you f\\*\\*\\*ing cheater...";
-    } else if (s1 == s2 && s2 == s3) {
-        output += "CHOOOOOO! Winner! Congrats " + message.author;
-    } else if (s1 != s2 && s2 != s3 && s1 != s3) {
-        output += "Better luck next time.";
-    } else {
-        output += "So close...";
-    }
+        var output = "";
+        var cheat = args[0] != null && args[0] == 'cheat';
 
-    output += "\n";
+        if (cheat) {
+            output += "CHOOOOOO! Winner! Congrats " + message.author + ", you f\\*\\*\\*ing cheater...";
+        } else if (s1 == s2 && s2 == s3) {
+            output += "CHOOOOOO! Winner! Congrats " + message.author;
+        } else if (s1 != s2 && s2 != s3 && s1 != s3) {
+            output += "Better luck next time.";
+        } else {
+            output += "So close...";
+        }
 
-    if (cheat) {
-        output += "**[** " + trains[s1] + " " + trains[s1] + " " + trains[s1] + " **]**";
-    }
-    else {
-        output += "**[** " + trains[s1] + " " + trains[s2] + " " + trains[s3] + " **]**";
-    }
+        output += "\n";
 
-    message.channel.send(output);
-}
+        if (cheat) {
+            output += "**[** " + trains[s1] + " " + trains[s1] + " " + trains[s1] + " **]**";
+        }
+        else {
+            output += "**[** " + trains[s1] + " " + trains[s2] + " " + trains[s3] + " **]**";
+        }
+
+        message.channel.send(output);
+
+    },
+};

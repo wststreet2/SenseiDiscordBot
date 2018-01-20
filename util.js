@@ -6,6 +6,49 @@ exports.setGame = function (client) {
     members += guild.members.size;
   });
 
-  client.user.setActivity(members + ' students.', {type: "WATCHING"});
+  client.user.setActivity(members + ' students.', { type: "WATCHING" });
   logger.logd('teacher for ' + members + ' students.');
+}
+
+
+exports.contains = function (value, searchFor) {
+  return (value || '').indexOf(searchFor) > -1;
+}
+
+exports.getOwnerId = function () { return '132517228670091264'; }
+
+var lastPicTime = 0;
+var lastVidTime = 0;
+exports.picspam = function (message) {
+  if (message.guild.id == '293373375475220480') {
+
+    if (!(message.channel.id == '304150184093417472' ||
+      message.channel.id == '304215787487625236' ||
+      message.channel.id == '304215835864465409')) {
+
+      var picExtRegex = new RegExp('\\.png|\\.jpg|\\.gif');
+
+      if (message.attachments.some(value => { return value.width > 0; }) ||
+        picExtRegex.exec(message.content)) {
+        if ((new Date().getTime() - lastPicTime) < 3600000) {
+          logger.logi(message.author + " in " + message.channel);
+          message.channel.send(message.author + " please keep images in the appropriate channels.");
+        }
+        lastPicTime = new Date().getTime();
+      }
+    }
+
+    var youtubeRegex = new RegExp('https*:\\/\\/(www.)*youtu\\.*be(\\.be)*(\\.com)*\\/');
+
+    if (!(message.channel.id == '306072408098603010' ||
+      message.channel.id == '304150184093417472')) {
+      if (youtubeRegex.exec(message.content)) {
+        if ((new Date().getTime() - lastVidTime) < 3600000) {
+          logger.logi(message.author + " in " + message.channel);
+          message.channel.send(message.author + " please keep videos in the appropriate channels.");
+        }
+        lastVidTime = new Date().getTime();
+      }
+    }
+  }
 }
