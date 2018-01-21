@@ -17,6 +17,16 @@ exports.contains = function (value, searchFor) {
 
 exports.getOwnerId = function () { return '132517228670091264'; }
 
+exports.isAdmin = function (roles, member) {
+  return roles.filter(role => { return role.hasPermission('ADMINISTRATOR'); })
+    .some(role => { return role.members.has(member.id); });
+}
+
+exports.hasPermission = function (roles, member, permission) {
+  return roles.filter(role => { return role.hasPermission(permission); })
+    .some(role => { return role.members.has(member.id); });
+}
+
 var lastPicTime = 0;
 var lastVidTime = 0;
 exports.picspam = function (message) {
@@ -26,7 +36,7 @@ exports.picspam = function (message) {
       message.channel.id == '304215787487625236' ||
       message.channel.id == '304215835864465409')) {
 
-      var picExtRegex = new RegExp('\\.png|\\.jpg|\\.gif');
+      var picExtRegex = new RegExp('http[^\\s]+(\\.png|\\.jpg|\\.gif)');
 
       if (message.attachments.some(value => { return value.width > 0; }) ||
         picExtRegex.exec(message.content)) {
