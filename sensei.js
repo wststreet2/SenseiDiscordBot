@@ -45,7 +45,16 @@ client.on('message', message => {
   if (!client.commands.has(command)) return;
 
   try {
-    client.commands.get(command).execute(message, args);
+    var commandObj = client.commands.get(command)
+    if (commandObj.requiresAdmin) {
+      if (util.isAdmin(message.guild.roles, message.author)) {
+        commandObj.execute(message, args);
+      } else {
+        message.channel.send(message.author + ', Insufficient privileges.');
+      }
+    } else {
+      commandObj.execute(message, args);
+    }
   }
   catch (error) {
     console.error(error);

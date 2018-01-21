@@ -5,5 +5,6 @@ module.exports = {
         const moment = require('moment');
         var totalSeconds = process.uptime();
         var output = moment().seconds(0 - totalSeconds).fromNow();
-        message.channel.send("I woke up " + output);    },
+        message.channel.send("I woke up " + output);
+    },
 };
