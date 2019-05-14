@@ -35,6 +35,15 @@ client.on('message', message => {
 
   util.picspam(message);
 
+  // Dadjoke
+  if (message.content.length < 25) {
+    if (message.content.startsWith('I\'m'))
+      message.channel.send('Hello, ' + message.content.slice('I\'m'.length).trim() + '. I\'m Sensei.');
+
+    if (message.content.startsWith('I am'))
+      message.channel.send('Hello, ' + message.content.slice('I am'.length).trim() + '. I\'m Sensei.');
+  }
+
   // Ignore messages without the prefix
   if (message.content.indexOf(config.prefix) !== 0) return;
 
