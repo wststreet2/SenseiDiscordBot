@@ -62,3 +62,30 @@ exports.picspam = function (message) {
     }
   }
 }
+
+exports.dadJoke = function (message) {
+
+  if (message.content.length < 25) {
+    var content = message.content.replace('’','\'').replace('`','\'');
+
+    if(Math.random() >= 0.5) return;
+
+    if (content.toLowerCase().startsWith('im ')) {
+      var name = content.slice('Im '.length).trim();
+      name = name.toLowerCase().replace('i\'m', '').replace('i am', '').replace('im', '');
+      message.channel.send('Hello, ' + name + '. I\'m Sensei.');
+    }
+
+    if (content.toLowerCase().startsWith('i\'m ')) {
+      var name = content.slice('I\'m '.length).trim();
+      name = name.toLowerCase().replace('i\'m', '').replace('i am', '').replace('im', '');
+      message.channel.send('Hello, ' + name + '. I\'m Sensei.');
+    }
+
+    if (content.toLowerCase().startsWith('i am ')) {
+      var name = content.slice('I am '.length).trim();
+      name = name.toLowerCase().replace('i\'m', '').replace('i am', '').replace('im', '');      
+      message.channel.send('Hello, ' + name + '. I\'m Sensei.');
+    }
+  }
+}
