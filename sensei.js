@@ -33,7 +33,8 @@ client.on('message', message => {
     message.channel.send(mentionLines[randomIndex]);
   }
 
-  // util.picspam(message);
+  util.mojispam(message);
+  util.picspam(message);
 
   // Dadjoke
   util.dadJoke(message);
