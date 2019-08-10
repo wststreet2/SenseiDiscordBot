@@ -35,6 +35,7 @@ client.on('message', message => {
 
   util.mojispam(message);
   util.picspam(message);
+  util.british(message);
 
   // Dadjoke
   util.dadJoke(message);
