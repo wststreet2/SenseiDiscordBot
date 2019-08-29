@@ -31,14 +31,14 @@ var lastPicTime = 0;
 var lastVidTime = 0;
 exports.picspam = function (message) {
   if (message.guild.id == '293373375475220480' || message.channel.id == '390203897928744980' /* #bottest */) {
-    
-    if(message.channel.id == '293373375475220480' /* #dining-room */) {
-    //if (!(message.channel.id == '304150184093417472' /* #spam */ ||
-    //  message.channel.id == '304215787487625236' /* #pics-and-memes */ ||
-    //  message.channel.id == '304215835864465409' /* #nsfw-ecchi */ ||
-    //  message.channel.id == '360480578098954253' /* #food-stuff */ ||
-    //  message.channel.id == '372702012212510730' /* #voice-chat */ ||
-    //  message.channel.id == '296681225639165953' /* #anime-gaming*/ )) {
+
+    if (message.channel.id == '293373375475220480' /* #dining-room */) {
+      //if (!(message.channel.id == '304150184093417472' /* #spam */ ||
+      //  message.channel.id == '304215787487625236' /* #pics-and-memes */ ||
+      //  message.channel.id == '304215835864465409' /* #nsfw-ecchi */ ||
+      //  message.channel.id == '360480578098954253' /* #food-stuff */ ||
+      //  message.channel.id == '372702012212510730' /* #voice-chat */ ||
+      //  message.channel.id == '296681225639165953' /* #anime-gaming*/ )) {
 
       var picExtRegex = new RegExp('http[^\\s]+(\\.png|\\.jpg|\\.gif|giphy\\.com\\/gifs\\/)');
 
@@ -54,7 +54,7 @@ exports.picspam = function (message) {
 
     var youtubeRegex = new RegExp('https*:\\/\\/(www.)*youtu\\.*be(\\.be)*(\\.com)*\\/');
 
-    if (!(message.channel.id == '306072408098603010' /* #music-and-videos */||
+    if (!(message.channel.id == '306072408098603010' /* #music-and-videos */ ||
       message.channel.id == '304150184093417472' /* #spam */)) {
       if (youtubeRegex.exec(message.content)) {
         if ((new Date().getTime() - lastVidTime) < 3600000) {
@@ -108,32 +108,31 @@ function checkMoji(msg) {
 }
 
 exports.mojispam = function (message) {
-  if (message.guild.id == '293373375475220480') {
+  if (message.channel.id == '390203897928744980' /* #bot-test */ ||
+    (message.guild.id == '293373375475220480' && message.channel.id != '304150184093417472' /* #spam */)) {
+    var count = 0;
 
-    if (message.channel.id != '304150184093417472' /* #spam */) {
-      var count = 0;
-
-      if (checkMoji(message)) {
-        var channel = typeof TextChannel
-        channel = message.channel;
-        channel.fetchMessages({ limit: 5 }).then(
-          messages => {
-            messages.array().forEach(m => {
-              if (checkMoji(m)) {
-                count++;
-                if (count >= 5) {
-                  logger.logd(message.content);
-                  message.channel.send("Please do not spam emoji in this channel, thank you!");
-                  return;
-                }
+    if (checkMoji(message)) {
+      var channel = typeof TextChannel
+      channel = message.channel;
+      channel.fetchMessages({ limit: 5 }).then(
+        messages => {
+          messages.array().forEach(m => {
+            if (checkMoji(m)) {
+              count++;
+              if (count >= 5) {
+                logger.logd(message.content);
+                message.channel.send("Please do not spam emoji in this channel, thank you!");
+                return;
               }
-            });
-          }
-        );
-      }
+            }
+          });
+        }
+      );
     }
   }
 }
+
 
 var dict = {
   " color ": "colour",
@@ -148,8 +147,8 @@ var dict = {
 
 exports.british = function (message) {
   if (message.author.id == exports.getOwnerId() ||
-      message.channel.id == '314759368749088769' /* #venting */ ||
-      (Math.random() * 100) > 2) {
+    message.channel.id == '314759368749088769' /* #venting */ ||
+    (Math.random() * 100) > 2) {
     return;
   }
 
